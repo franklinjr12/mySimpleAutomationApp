@@ -7,18 +7,50 @@
  */
 
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Button, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 
-export class MyMenuDesign extends Component {
+
+export class MainHeader extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      headerName: 'test'
+    }
+    if (this.props.headerName != null) {
+      this.state.headerName = this.props.headerName;
+    }
+  }
+  addDevice = function () {
+    Alert.alert('pintinho');
+  }
+  naoSei = function () {
+    Alert.alert('vai ter coisa aqui');
+  }
   render() {
     return (
-
-      <View>
-        <View style={{ width: '100%', height: '30%', backgroundColor: 'red' }}></View>
-        <View style={{ position: 'absolute', top: '30%', width: '20%', height: '310%', backgroundColor: 'blue' }}></View>
-        <View style={{ position: 'absolute', top: '30%', left: '20%', width: '100%', height: '310%', backgroundColor: 'green' }}></View>
-      </View>
-
+      <View style={{ flex: 1 }, styles.mainHeader}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 0.5 }}>
+            <TouchableOpacity
+              style={{ width: '100%', height: '100%', justifyContent: 'center' }}
+              onPress={this.naoSei}>
+              <Text style={{ textAlign: 'center' }}>?</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 0.5 }}>
+            <Text style={{ justifyContent: 'center', textAlign: 'center', fontWeight: 'bold', fontSize: 20 }}>{this.state.headerName}</Text>
+          </View>
+          <View style={{ flex: 0.5 }}>
+            <TouchableOpacity
+              style={{ width: '100%', height: '100%', alignItens: 'center' }}
+              onPress={this.addDevice}>
+              <Image style={{ width: '100%', height: '100%', resizeMode: 'stretch' }} source={require('./images/addButton.jpeg')}>
+              </Image>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View >
     );
   }
 }
@@ -26,9 +58,19 @@ export class MyMenuDesign extends Component {
 export default class Main extends Component {
   render() {
     return (
+      <View style={{ flex: 1, flexDirection: 'column' }}>
 
-      <MyMenuDesign></MyMenuDesign>
+        <MainHeader style={{ flex: 1 }} ></MainHeader>
+        <ScrollView style={{ flex: 1, backgroundColor: 'gray' }}></ScrollView>
+      </View>
 
     );
   }
 }
+
+const styles = StyleSheet.create({
+  mainHeader: {
+    height: 40,
+    backgroundColor: 'white'
+  }
+});
